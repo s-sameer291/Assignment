@@ -1,0 +1,26 @@
+trigger: 
+- main
+
+pool:
+  name: agents-ka-jhund
+
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'Assignment_connect'
+    backendAzureRmOverrideSubscriptionID: 'c060d854-01c4-4739-baf7-57540765c3d2'
+    backendAzureRmResourceGroupName: 'rg_practice'
+    backendAzureRmStorageAccountName: 'storageassig1912'
+    backendAzureRmContainerName: 'blobcon'
+    backendAzureRmKey: 'terraform.tfstate'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
