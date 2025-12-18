@@ -13,14 +13,8 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
     backendServiceArm: 'Assignment_connect'
-    backendAzureRmOverrideSubscriptionID: 'c060d854-01c4-4739-baf7-57540765c3d2'
-    backendAzureRmResourceGroupName: 'rg_practice'
     backendAzureRmStorageAccountName: 'storageassig1912'
     backendAzureRmContainerName: 'blobcon'
     backendAzureRmKey: 'terraform.tfstate'
-
-- task: TerraformTask@5
-  inputs:
-    provider: 'azurerm'
-    command: 'validate'
