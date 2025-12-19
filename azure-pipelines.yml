@@ -69,17 +69,36 @@ stages:
       inputs:
         approvers: 'sameer231086@gmail.com'
 
+  
+
 
   - job: terraformapply
     displayName: Terraform Apply Job
     dependsOn: ManualApproval
     condition: succeeded()
     steps:
+
+    - task: TerraformInstaller@1
+      displayName: 'terraform install'
+      inputs:
+        terraformVersion: 'latest'
+
     - task: TerraformTask@5
+      displayName: 'terraform init'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+        backendServiceArm: 'Assignment_connect'
+        backendAzureRmStorageAccountName: 'storageassig1912'
+        backendAzureRmContainerName: 'blobcon'
+        backendAzureRmKey: 'terraform.tfstate'
+
+    - task: TerraformTask@5
+      displayName: 'terraform apply'
       inputs:
         provider: 'azurerm'
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
         environmentServiceNameAzureRM: 'Assignment_connect'
-      
-
+        commandOptions: '-auto-approve'
