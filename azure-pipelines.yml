@@ -5,46 +5,46 @@ pool:
   name: agent12
 
 
-steps:
-- task: TerraformInstaller@1
-  inputs:
-    terraformVersion: '1.6.6'
+# steps:
+# - task: TerraformInstaller@1
+#   inputs:
+#     terraformVersion: '1.6.6'
 
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'My_connection'
-    scriptType: ps
-    scriptLocation: inlineScript
-    inlineScript: |
-      az account show
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'My_connection'
+#     scriptType: ps
+#     scriptLocation: inlineScript
+#     inlineScript: |
+#       az account show
 
-- powershell: |
-    terraform version
-    terraform init `
-      -backend-config="storage_account_name=storageassig1912" `
-      -backend-config="container_name=blobcon" `
-      -backend-config="key=terraform.tfstate" `
-      -backend-config="use_azuread_auth=true"
-       workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
+# - powershell: |
+#     terraform version
+#     terraform init `
+#       -backend-config="storage_account_name=storageassig1912" `
+#       -backend-config="container_name=blobcon" `
+#       -backend-config="key=terraform.tfstate" `
+#       -backend-config="use_azuread_auth=true"
+#        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
 
-# stages:
-# - stage: Plan
-#   displayName: Terraform Plan Stage
-#   jobs:
-#   - job: terraforminit
-#     displayName: Terraform Job
-#     steps:
-#     - task: TerraformInstaller@1
-#       inputs:
-#         terraformVersion: 'latest'
+stages:
+- stage: Plan
+  displayName: Terraform Plan Stage
+  jobs:
+  - job: terraforminit
+    displayName: Terraform Job
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
 
-#     - task: TerraformTask@5
-#       inputs:
-#         provider: 'azurerm'
-#         command: 'init'
-#         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
-#         backendServiceArm: 'My_connection'
-#         backendAzureRmStorageAccountName: 'storageassig1912'
-#         backendAzureRmContainerName: 'blobcon'
-#         backendAzureRmKey: 'terraform.tfstate'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
+        backendServiceArm: 'Assignment_connect'
+        backendAzureRmStorageAccountName: 'storageassig1912'
+        backendAzureRmContainerName: 'blobcon'
+        backendAzureRmKey: 'terraform.tfstate'
 
