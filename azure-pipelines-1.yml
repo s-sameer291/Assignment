@@ -1,17 +1,15 @@
-trigger: 
+trigger:
 - main
 
 pool:
   name: agents-ka-jhund
 
-
 stages:
-##init plan validate stages:
 - stage: Plan
-  displayName: Terraformplanstage
+  displayName: Terraform Plan Stage
   jobs:
-  - job : terraforminit
-    displayName: Terraformjob
+  - job: terraforminit
+    displayName: Terraform Job
     steps:
     - task: TerraformInstaller@1
       inputs:
@@ -21,61 +19,27 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
         backendServiceArm: 'My_connection'
         backendAzureRmStorageAccountName: 'storageassig1912'
         backendAzureRmContainerName: 'blobcon'
         backendAzureRmKey: 'terraform.tfstate'
 
-    # - task: TerraformTask@5
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'init'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
-
-
-    
     - task: TerraformTask@5
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
         environmentServiceNameAzureRM: 'My_connection'
 
-
-## security scanning stages:
 - stage: securityscanning
-  displayName: scanningvalastage
+  displayName: Security Scanning Stage
+  dependsOn: Plan
   jobs:
-  - job : tfseec
-    displayName: tfsec
+  - job: tfsec
+    displayName: tfsec Scan
     steps:
     - task: tfsec@1
       inputs:
         version: 'v1.26.0'
-        dir: '(System.DefaultWorkingDirectory)'
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-## manual validation stages:
-
-
-## apply stages:
-
-
-
-
-
-
+        dir: '$(System.DefaultWorkingDirectory)'
