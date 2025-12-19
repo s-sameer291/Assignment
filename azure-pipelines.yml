@@ -54,5 +54,20 @@ stages:
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: 'tflint-report.xml'
+
+- stage: TerraformApply
+  displayName: Terraform Apply Stage
+  dependsOn: Plan
+  condition: succeeded('Plan')
+  jobs:
+  - job: terraformapply
+    displayName: Terraform Apply Job
+    steps:
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+        environmentServiceNameAzureRM: 'Assignment_connect'
       
 
