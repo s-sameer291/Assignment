@@ -46,6 +46,6 @@ stages:
       - task: CmdLine@2
         inputs:
           script: 'tflint --recursive /f junit > tflint-report.xml'
-          workingDirectory: 'System.DefaultWorkingDirectory'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
       
 
