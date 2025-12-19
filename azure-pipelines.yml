@@ -34,6 +34,18 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
         environmentServiceNameAzureRM: 'Assignment_connect'
+      displayName: 'terraform Plan'
 
-
+- stage: SecurityScanning
+  displayName: 'Security Scanning'
+  dependsOn: Plan
+  jobs:
+    - job: tflint
+      displayName: 'tflint'
+      steps:
+      - task: CmdLine@2
+        inputs:
+          script: 'tflint --recursive /f junit > tflint-report.xml'
+          workingDirectory: 'System.DefaultWorkingDirectory'
+      
 
