@@ -50,6 +50,7 @@ stages:
         continueOnError: true
 
       - task: PublishTestResults@2
+        displayName: 'Publish TFLint Test Results'
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: 'tflint-report.xml'
