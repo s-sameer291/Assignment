@@ -2,7 +2,7 @@ trigger:
 - none
 
 pool:
-  name: agents-ka-jhund
+  name: agent12
 
 
 steps:
