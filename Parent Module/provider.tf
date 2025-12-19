@@ -6,13 +6,13 @@ terraform {
     }
   }
 
-  backend "azurerm" {
-    resource_group_name = "rg_practice"
-    storage_account_name = "storageassig1912"
-    container_name = "blobcon"
-    key = "terraform.tfstate"
-    
-  }
+#   backend "azurerm" {
+#     resource_group_name = "rg_practice"
+#     storage_account_name = "storageassig1912"
+#     container_name = "blobcon"
+#     key = "terraform.tfstate"
+
+#   }
 }
 
 provider "azurerm" {
