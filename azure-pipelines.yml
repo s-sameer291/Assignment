@@ -4,24 +4,40 @@ trigger:
 pool:
   name: agents-ka-jhund
 
-stages:
-- stage: Plan
-  displayName: Terraform Plan Stage
-  jobs:
-  - job: terraforminit
-    displayName: Terraform Job
-    steps:
-    - task: TerraformInstaller@1
-      inputs:
-        terraformVersion: 'latest'
 
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
-        backendServiceArm: 'My_connection'
-        backendAzureRmStorageAccountName: 'storageassig1912'
-        backendAzureRmContainerName: 'blobcon'
-        backendAzureRmKey: 'terraform.tfstate'
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
+    backendServiceArm: 'My_connection'
+    backendAzureRmStorageAccountName: 'storageassig1912'
+    backendAzureRmContainerName: 'blobcon'
+    backendAzureRmKey: 'terraform.tfstate'
+
+# stages:
+# - stage: Plan
+#   displayName: Terraform Plan Stage
+#   jobs:
+#   - job: terraforminit
+#     displayName: Terraform Job
+#     steps:
+#     - task: TerraformInstaller@1
+#       inputs:
+#         terraformVersion: 'latest'
+
+#     - task: TerraformTask@5
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
+#         backendServiceArm: 'My_connection'
+#         backendAzureRmStorageAccountName: 'storageassig1912'
+#         backendAzureRmContainerName: 'blobcon'
+#         backendAzureRmKey: 'terraform.tfstate'
 
