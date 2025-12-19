@@ -32,9 +32,8 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/parent Module'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
         environmentServiceNameAzureRM: 'Assignment_connect'
-      displayName: 'terraform Plan'
 
 
 
