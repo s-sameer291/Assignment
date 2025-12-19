@@ -60,8 +60,20 @@ stages:
   dependsOn: Plan
   condition: succeeded('Plan')
   jobs:
+
+  - job: ManualApproval
+    displayName: 'Manual Approval before Apply'
+    pool: server
+    steps:
+    - task: ManualValidation@1
+      inputs:
+        approvers: 'sameer231086@gmail.com'
+
+
   - job: terraformapply
     displayName: Terraform Apply Job
+    dependsOn: ManualApproval
+    condition: succeeded()
     steps:
     - task: TerraformTask@5
       inputs:
