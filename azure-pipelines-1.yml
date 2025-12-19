@@ -27,11 +27,11 @@ stages:
         backendAzureRmContainerName: 'blobcon'
         backendAzureRmKey: 'terraform.tfstate'
 
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
+    # - task: TerraformTask@5
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'init'
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/Parent-Module'
 
 
     
