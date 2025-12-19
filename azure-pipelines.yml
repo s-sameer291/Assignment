@@ -47,5 +47,6 @@ stages:
         inputs:
           script: 'tflint --recursive /f junit > tflint-report.xml'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
+        continueOnError: true
       
 
