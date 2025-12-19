@@ -28,5 +28,12 @@ stages:
         backendAzureRmKey: 'terraform.tfstate'
       displayName: 'terraform init'
 
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/parent Module'
+        environmentServiceNameAzureRM: 'Assignment_connect'
+
 
 
