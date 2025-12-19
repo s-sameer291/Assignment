@@ -25,7 +25,7 @@ stages:
         backendServiceArm: 'My_connection'
         backendAzureRmStorageAccountName: 'storageassig1912'
         backendAzureRmContainerName: 'blobcon'
-        backendAzureRmKey: 'terra.tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
 
     # - task: TerraformTask@5
     #   inputs:
