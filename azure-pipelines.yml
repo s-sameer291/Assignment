@@ -102,3 +102,94 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
         environmentServiceNameAzureRM: 'Assignment_connect'
         commandOptions: '-auto-approve'
+
+
+
+# ================================================
+# ================================================
+
+
+# trigger: none
+# pool:
+#   name: agent12
+
+
+# #### terraforminit,validate, plan
+# stages:
+# - stage: terraforminitValidatePla
+#   displayName : Terraform plan stage
+#   jobs:
+#   - job: TerraformJob
+#     displayName : Terraform Job
+#     steps:
+#     - task: TerraformInstaller@1
+#       inputs:
+#         terraformVersion: 'latest'
+
+#     - task: TerraformTask@5
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+#         backendServiceArm: 'Assignment_connect'
+#         backendAzureRmStorageAccountName: 'storageassig1912'
+#         backendAzureRmContainerName: 'blobcon'
+#         backendAzureRmKey: 'terraform.tfstate'
+
+#     - task: TerraformTask@5
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'plan'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+#         environmentServiceNameAzureRM: 'Assignment_connect'
+
+# #### Scanning
+
+# - stage: Scanning
+#   displayName: Scanning Stage
+#   jobs:
+#   - job: scanningJob
+#     displayName: Scanning job
+#     steps:
+#     - task: CmdLine@2
+#       inputs:
+#         script: 'tflint --recursive /format junit tflint-report.xml'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+    
+#     - task: PublishTestResults@2
+#       inputs:
+#         testResultsFormat: 'JUnit'
+#         testResultsFiles: 'tflint-report.xml'
+    
+# #### Terraform apply
+
+# - stage: Terraformapply
+#   displayName: Terraform Apply
+#   condition: succeeded('terraforminitValidatePla')
+#   jobs:
+#     - job : apply
+#       displayName: Apply job
+#       steps:
+#       - task: TerraformInstaller@1
+#         inputs:
+#           terraformVersion: 'latest'
+      
+#       - task: TerraformTask@5
+#         inputs:
+#           provider: 'azurerm'
+#           command: 'init'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Parent Module'
+#           backendServiceArm: 'My_connection'
+#           backendAzureRmStorageAccountName: 'storageassig1912'
+#           backendAzureRmContainerName: 'blobcon'
+#           backendAzureRmKey: 'terraform.tfstate'
+
+#       - task: TerraformTask@5
+#         inputs:
+#           provider: 'azurerm'
+#           command: 'apply'
+#           commandOptions: '-- auto approve'
+#           environmentServiceNameAzureRM: 'My_connection'
+
+
